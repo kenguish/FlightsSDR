@@ -6,6 +6,7 @@
 //
 
 #import "Dump1090Helper.h"
+#import <Cocoa/Cocoa.h>
 
 /* Mode1090, a Mode S messages decoder for RTLSDR devices.
  *
@@ -349,7 +350,14 @@ void modesInitRTLSDR(void) {
     device_count = rtlsdr_get_device_count();
     if (!device_count) {
         fprintf(stderr, "No supported RTLSDR devices found.\n");
-        exit(1);
+        
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setMessageText:@"No supported RTLSDR devices found"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        if ([alert runModal] == NSAlertFirstButtonReturn) {
+            exit(1);
+        }
     }
     
     fprintf(stderr, "Found %d device(s):\n", device_count);
@@ -362,7 +370,15 @@ void modesInitRTLSDR(void) {
     if (rtlsdr_open(&Modes.dev, Modes.dev_index) < 0) {
         fprintf(stderr, "Error opening the RTLSDR device: %s\n",
                 strerror(errno));
-        exit(1);
+        
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setMessageText:@"Error opening the RTLSDR device"];
+        [alert setInformativeText: [NSString stringWithFormat: @"%s", strerror(errno)] ];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        if ([alert runModal] == NSAlertFirstButtonReturn) {
+            exit(1);
+        }
     }
     
     /* Set gain, frequency, sample rate, and reset the device. */
