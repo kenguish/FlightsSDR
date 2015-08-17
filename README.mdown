@@ -1,0 +1,13 @@
+FlightsSDR
+======================
+Originally posted on: August 18, 2015
+
+FlightsSDR is ADS-B decoder using Dump1090 as core engine code, for live tracking of flights. 
+
+## About
+
+FlightsSDR is a Mac port of dump1090 to Cocoa on Mac. Upcoming features:
+- Update Table and Map interface using native Cocoa classes
+
+## Credits
+FlightsSDR follows the license of Dump1090, which was written by Salvatore Sanfilippo antirez@gmail.com and is released under the BSD three clause license.
